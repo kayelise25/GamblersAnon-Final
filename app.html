@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Gamblers Anonymous: 21 BlackJack App</title>
+  </head>
+  <body>
+    <header>
+      <h1>Gamblers Anonymous</h1>
+      <img src="/visuals/GA(Transparent).png" alt="logo" />
+    </header>
+    <div class="dropdown2">
+      <button id="dropbtn2">Place New Bet</button>
+        <div class="dropdown-content2">
+          <button id="poker1" onclick="pokerChip(1)" value="1">
+            <p>$1</p>
+            <img src="/poker chips/1.png" alt="logo" border="0" />
+          </button>
+          <button id="poker5" onclick="pokerChip(5)" value="5">
+            <p>$5</p>
+            <img src="/poker chips/5.png" alt="logo" border="0" />
+          </button>
+          <button id="poker25" onclick="pokerChip(25)" value="25">
+            <p>$25</p>
+            <img src="/poker chips/25.png" alt="logo" border="0" />
+          </button>
+          <button id="poker50" onclick="pokerChip(50)" value="50">
+            <p>$50</p>
+            <img src="/poker chips/50.png" alt="logo" border="0" />
+          </button>
+          <button id="poker100" onclick="pokerChip(100)" value="100">
+           <p>$100</p>
+            <img src="/poker chips/100.png" alt="logo" border="0" />
+          </button>
+          <button id="poker500" onclick="pokerChip(500)" value="500">
+            <p>$500</p>
+            <img src="/poker chips/500.png" alt="logo" border="0" />
+          </button>
+          <button id="poker1000" onclick="pokerChip(1000)" value="1000">
+            <p>$1000</p>
+            <img src="/poker chips/1000.png" alt="logo" border="0" />
+          </button>
+          <button id="poker5000" onclick="pokerChip(5000)" value="5000">
+            <p>$5000</p>
+            <img src="/poker chips/5000.png" alt="logo" border="0" />
+          </button>
+          <button
+            id="poker10000"
+            onclick="pokerChip(10000)"
+            value="10000"
+          >
+           <p>$10000</p>
+            <img src="/poker chips/10000.png" alt="logo" border="0" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <h3 id="totalFund">
+      Total Funds:
+      <p id="totalFund_p"></p>
+    </h3>
+    <h3 id="playerScore">
+      Player Score:
+      <p id="playerScore_p"></p>
+    </h3>
+    <section class="container">
+      <div id="table">
+        <section class="table-cards"></section>
+        <div class="menu-start">
+          <div class="box">
+            <p>Set Deck Size</p>
+            <input id="deckSize" type="text" name="" placeholder="Ex: 4" />
+            <div class="dropdown">
+              <button id="dropbtn">Chip Options</button>
+              <div class="dropdown-content">
+                <button id="poker1" onclick="pokerChip(1)" value="1">
+                  <p>$1</p>
+                  <img src="/poker chips/1.png" alt="logo" border="0" />
+                </button>
+                <button id="poker5" onclick="pokerChip(5)" value="5">
+                  <p>$5</p>
+                  <img src="/poker chips/5.png" alt="logo" border="0" />
+                </button>
+                <button id="poker25" onclick="pokerChip(25)" value="25">
+                  <p>$25</p>
+                  <img src="/poker chips/25.png" alt="logo" border="0" />
+                </button>
+                <button id="poker50" onclick="pokerChip(50)" value="50">
+                  <p>$50</p>
+                  <img src="/poker chips/50.png" alt="logo" border="0" />
+                </button>
+                <button id="poker100" onclick="pokerChip(100)" value="100">
+                  <p>$100</p>
+                  <img src="/poker chips/100.png" alt="logo" border="0" />
+                </button>
+                <button id="poker500" onclick="pokerChip(500)" value="500">
+                  <p>$500</p>
+                  <img src="/poker chips/500.png" alt="logo" border="0" />
+                </button>
+                <button id="poker1000" onclick="pokerChip(1000)" value="1000">
+                  <p>$1000</p>
+                  <img src="/poker chips/1000.png" alt="logo" border="0" />
+                </button>
+                <button id="poker5000" onclick="pokerChip(5000)" value="5000">
+                  <p>$5000</p>
+                  <img src="/poker chips/5000.png" alt="logo" border="0" />
+                </button>
+                <button
+                  id="poker10000"
+                  onclick="pokerChip(10000)"
+                  value="10000"
+                >
+                  <p>$10000</p>
+                  <img src="/poker chips/10000.png" alt="logo" border="0" />
+                </button>
+              </div>
+            </div>
+            <p>Other Amount</p>
+            <input id="bet_amount" type="text" name="" placeholder="$0.00" />
+            <button id="bet">Bet</button>
+          </div>
+        </div>
+      </div>
+      <div id="player">
+        <section class="player-cards"></section>
+        <div class="menu">
+          <h2>Hand 1</h2>
+          <button id="hit" disabled="true">HIT</button>
+          <button id="stand" disabled="true">STAND</button>
+          <button id="split" disabled="true">SPLIT</button>
+          <button id="double" disabled="true">DOUBLE</button>
+        </div>
+      </div>
+      <div id="player2">
+        <section class="player-cardsSPLT"></section>
+        <div class="menu2">
+          <h2>Hand 2</h2>
+          <button id="hit2" disabled="true">HIT</button>
+          <button id="stand2" disabled="true">STAND</button>
+          <button id="double2" disabled="true">DOUBLE</button>
+        </div>
+      </div>
+    </section>
+
+    <div class="message-div">
+      <div class="message-content"></div>
+    </div>
+    <div id="overlay"></div>
+    <script type="text/javascript" src="script.js">
+      window.onload = Total_Funds()
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+  </body>
+</html>

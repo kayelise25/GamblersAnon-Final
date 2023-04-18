@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kaisei+HarunoUmi:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Gamblers Anonymous: 21 BlackJack App</title>
+  </head>
+  <body>
+    <header>
+      <h1>Gamblers Anonymous</h1>
+      <img src="/visuals/GA(Transparent).png" alt="logo" />
+    </header>
+    <section class="container">
+      <div id="rules">
+        <h1>21 BlackJack</h1>
+        <h2>Rules:</h2>
+        <p>
+          Blackjack hands are scored by their point total. The hand with the
+          highest total wins as long as it doesn't exceed 21; a hand with a
+          higher total than 21 is said to bust. Cards 2 through 10 are worth
+          their face value, and face cards (jack, queen, king) are also worth
+          10. An ace's value is 11 unless this would cause the player to bust,
+          in which case it is worth 1
+        </p>
+      </div>
+
+      <div id="table">
+        <section class="table-cards"></section>
+        <div class="menu-start">
+          <div class="box">
+            <label class="toggle">
+              <span class="toggle-label"
+                >Regular Mode: ON<br />Tutorial Mode: OFF</span
+              >
+              <input
+                id="switch"
+                class="toggle-checkbox"
+                onclick="gameSettings()"
+                type="checkbox"
+                checked
+              />
+              <div class="toggle-switch"></div>
+            </label>
+            <script type="text/javascript">
+              function gameSettings() {
+                var checkbox = document.getElementById("switch")
+                if (checkbox.checked) {
+                  document
+                    .getElementById("link")
+                    .setAttribute("href", "app.html")
+                } else {
+                  document
+                    .getElementById("link")
+                    .setAttribute("href", "app-tutorial.html")
+                }
+              }
+            </script>
+            <button id="start">
+              <a id="link" href="app.html">Start</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+  </body>
+</html>

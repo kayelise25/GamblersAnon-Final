@@ -1,0 +1,899 @@
+* {
+  margin: 0px;
+}
+
+/*---------------------------Main Format--------------------------------- */
+header h1 {
+  background-color: #d10f0f;
+  background-color: #ac1507;
+  background-image: linear-gradient(315deg, #ac1507 0%, #d10f0f 74%);
+  font-size: 82px;
+  margin-top: 10px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  background-color: #ff0000;
+  background-color: #ff0000;
+  background-image: linear-gradient(315deg, #ff0000 0%, #ff0000 74%);
+  font-size: 30px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#bestDecision {
+  background-color: #ffffff;
+  display: block;
+  margin-left: 0.9em;
+  font-size: 45px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#stratDecision {
+  background-color: #ffffff;
+  display: block;
+  margin-left: 0.9em;
+  font-size: 40px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body {
+  background: url("/visuals/pokertable.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#table {
+  width: 700px;
+  height: 239px;
+  margin: 0 auto;
+  padding: 15px;
+  position: relative;
+}
+
+.menu,
+.menu2 {
+  width: 130px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 25px;
+  border-radius: 30px;
+  margin-top: 130px;
+  display: none;
+}
+
+.menu h2,
+.menu2 h2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Kaisei HarunoUmi", serif;
+  font-size: 30px;
+  display: flex;
+  border-radius: 15px;
+  color: #ffffff;
+}
+
+.box {
+  width: 220px;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 25px;
+  border-radius: 10px;
+  margin-top: 130px;
+}
+
+.box p {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Kaisei HarunoUmi", serif;
+  font-size: 30px;
+  display: flex;
+  border-radius: 15px;
+  color: #ffffff;
+}
+
+.menu-start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.box > button {
+  margin: 40px;
+}
+
+.menu > button,
+.menu2 > button {
+  margin: 12px;
+}
+
+.player-cards .card__image {
+  width: 180px;
+}
+
+.player-cardsSPLT .card__image {
+  width: 180px;
+}
+
+.table-cards .card__image {
+  width: 210px;
+}
+
+header {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+section.table-cards {
+  margin: 0 auto;
+  position: relative;
+  width: 600px;
+}
+
+#player {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 20%;
+  margin-left: 20%;
+  flex-flow: row;
+}
+
+#player2 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 20%;
+  margin-left: 20%;
+  flex-flow: row;
+}
+container {
+  display: flex;
+  position: relative;
+  left: 50px;
+}
+/*--------------------------------------------------------------------------- */
+
+/*------------------Rules in Home Screen-----------------------*/
+#rules {
+  width: 700px;
+  height: 239px;
+  margin: 0 auto;
+  padding: 25px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+#rules h1 {
+  background-color: #ffffff;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #ffffff 74%);
+  font-size: 60px;
+  margin-top: 10px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#rules h2 {
+  background-color: #ffffff;
+  background-color: #ffffff;
+  background-image: linear-gradient(315deg, #ffffff 0%, #ffffff 74%);
+  font-size: 30px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+#rules p {
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Kaisei HarunoUmi", serif;
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.345);
+  display: flex;
+  padding: 25px;
+  border-radius: 15px;
+  margin-top: 1px;
+  color: #ffffff;
+}
+/*-------------------------------------------------------------------*/
+
+/*--------------------------Toggle Switch----------------------------- */
+.toggle {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.toggle-label {
+  position: relative;
+  margin-right: 15px;
+  justify-content: left;
+  top: 2px;
+  color: #ffffff;
+}
+.toggle-switch {
+  display: inline-block;
+  background: #ccc;
+  border-radius: 16px;
+  width: 58px;
+  height: 32px;
+  position: relative;
+  vertical-align: middle;
+  transition: background 0.25s;
+}
+.toggle-switch:before,
+.toggle-switch:after {
+  content: "";
+}
+.toggle-switch:before {
+  display: block;
+  background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  transition: left 0.25s;
+}
+.toggle:hover .toggle-switch:before {
+  background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.toggle-checkbox:checked + .toggle-switch {
+  background: #fa0000;
+}
+.toggle-checkbox:checked + .toggle-switch:before {
+  left: 30px;
+}
+
+.toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+/*--------------------------------------------------------------------------- */
+
+/* ----------------------Buttons----------------------------- */
+/*Start Button Format*/
+#start {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #d10f0f 0%, #c30e0e 100%);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s;
+  outline: none;
+}
+
+#start a {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-decoration: none;
+}
+#start:hover {
+  background: linear-gradient(to bottom, #d10f0f 5%, #c30e0e 100%);
+  background-color: #d10f0f;
+}
+#start:active {
+  position: relative;
+  top: 1px;
+}
+
+/*Bet Button Format*/
+#bet {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #d10f0f 0%, #c30e0e 100%);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s;
+  outline: none;
+}
+#bet:hover {
+  background: linear-gradient(to bottom, #d10f0f 5%, #c30e0e 100%);
+  background-color: #d10f0f;
+}
+#bet:active {
+  position: relative;
+  top: 1px;
+}
+
+#bet:disabled {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #626262 0%, #626262 100%);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s;
+  outline: none;
+}
+
+/*Stand Button Format*/
+#stand,
+#stand2 {
+  box-shadow: 0px 1px 0px 0px #8ffa81;
+  background: linear-gradient(to bottom, #7af36a 5%, #55dd43 100%);
+  background-color: #7af36a;
+  border-radius: 7px;
+  border: 1px solid #55dd43;
+  display: inline-block;
+  color: #000000;
+  cursor: pointer;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 6px 24px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #8ffa81;
+}
+#stand:hover,
+#stand2:hover {
+  background: linear-gradient(to bottom, #55dd43 5%, #7af36a 100%);
+  background-color: #55dd43;
+}
+#stand:active,
+#stand2:active {
+  position: relative;
+  top: 1px;
+}
+
+#stand:disabled,
+#stand2:disabled {
+  box-shadow: 0px 1px 0px 0px #6d6e6d;
+  background: linear-gradient(to bottom, #626262 5%, #626262 100%);
+  background-color: #626262;
+  border-radius: 7px;
+  border: 1px solid #626262;
+  display: inline-block;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: Arial;
+  font-size: 15px;
+  padding: 6px 24px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #626262;
+}
+
+/*Hit Button Format*/
+#hit,
+#hit2 {
+  box-shadow: inset 0px 1px 0px 0px #f5978e;
+  background: linear-gradient(to bottom, #f24537 5%, #c62d1f 100%);
+  background-color: #f24537;
+  border-radius: 6px;
+  border: 1px solid #d02718;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #810e05;
+}
+#hit:hover,
+#hit2:hover {
+  background: linear-gradient(to bottom, #c62d1f 5%, #f24537 100%);
+  background-color: #c62d1f;
+}
+#hit:active,
+#hit2:active {
+  position: relative;
+  top: 1px;
+}
+
+#hit:disabled,
+#hit2:disabled {
+  box-shadow: inset 0px 1px 0px 0px #666565;
+  background: linear-gradient(to bottom, #626262 5%, #626262 100%);
+  background-color: #626262;
+  border-radius: 6px;
+  border: 1px solid #626262;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #626262;
+}
+/*Split Button Format*/
+#split {
+  box-shadow: inset 0px 1px 0px 0px #fbff27;
+  background: linear-gradient(to bottom, #eff316 5%, #f3d914 100%);
+  background-color: #f3d914;
+  border-radius: 6px;
+  border: 1px solid #f7db07;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #dac105;
+}
+#split:hover {
+  background: linear-gradient(to bottom, #f3d914 5%, #eff316 100%);
+  background-color: #f3d914;
+}
+#split:active {
+  position: relative;
+  top: 1px;
+}
+
+#split:disabled {
+  box-shadow: inset 0px 1px 0px 0px #666565;
+  background: linear-gradient(to bottom, #626262 5%, #626262 100%);
+  background-color: #626262;
+  border-radius: 6px;
+  border: 1px solid #626262;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #626262;
+}
+
+/*Double Button Format*/
+#double,
+#double2 {
+  box-shadow: inset 0px 1px 0px 0px #4d7efc;
+  background: linear-gradient(to bottom, #2961ee 5%, #1847be 100%);
+  background-color: #2961ee;
+  border-radius: 6px;
+  border: 1px solid #4d7efc;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #08329c;
+}
+#double:hover,
+#double2:hover {
+  background: linear-gradient(to bottom, #1847be 5%, #2961ee 100%);
+  background-color: #1847be;
+}
+#double:active,
+#double2:active {
+  position: relative;
+  top: 1px;
+}
+
+#double:disabled,
+#double2:disabled {
+  box-shadow: inset 0px 1px 0px 0px #666565;
+  background: linear-gradient(to bottom, #626262 5%, #626262 100%);
+  background-color: #626262;
+  border-radius: 6px;
+  border: 1px solid #626262;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #626262;
+}
+/*--------------------------------------------------------------------------- */
+
+/*------------------------Total Funds Format-------------------------------- */
+#totalFund,
+#playerScore {
+  background-color: #ffffff;
+  display: block;
+  position: relative;
+  margin-left: 0.9em;
+  font-size: 30px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#totalFund p,
+#playerScore p {
+  background-color: #ffffff;
+  display: block;
+  margin-left: 0.9em;
+  font-size: 25px;
+  font-family: "Kaisei HarunoUmi", serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+/*--------------------------------------------------------------------------- */
+
+/*-------------------Cards----------------------------*/
+.table-cards section:nth-child(1),
+.player-cards section:nth-child(1),
+.player-cardsSPLT section:nth-child(1) {
+  position: absolute;
+  left: 0px;
+}
+
+.table-cards section:nth-child(2),
+.player-cards section:nth-child(2),
+.player-cardsSPLT section:nth-child(2) {
+  position: absolute;
+  left: 50px;
+}
+
+.table-cards section:nth-child(3),
+.player-cards section:nth-child(3),
+.player-cardsSPLT section:nth-child(3) {
+  position: absolute;
+  left: 100px;
+}
+.table-cards section:nth-child(4),
+.player-cards section:nth-child(4),
+.player-cardsSPLT section:nth-child(4) {
+  position: absolute;
+  left: 150px;
+}
+.table-cards section:nth-child(5),
+.player-cards section:nth-child(5),
+.player-cardsSPLT section:nth-child(5) {
+  position: absolute;
+  left: 200px;
+}
+.table-cards section:nth-child(6),
+.player-cards section:nth-child(6),
+.player-cardsSPLT section:nth-child(6) {
+  position: absolute;
+  left: 250px;
+}
+/*------------------------------------------------------------------------*/
+
+/*--------------------Pop Up Message----------------------*/
+.message-div {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  z-index: 10;
+  background-color: #e51c46;
+  width: 300px;
+  margin: 20px auto;
+  color: #fff;
+  line-height: 40px;
+  height: 340px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-top: 30px;
+}
+
+.message-div.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+img.msg__img {
+  max-width: 250px;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.message-div:before,
+.message-div:after {
+  content: "";
+  line-height: 0;
+  border-style: solid;
+  border-width: 20px;
+  position: fixed;
+  top: 10px;
+  z-index: -2000;
+  width: 5px;
+}
+.message-div:before {
+  border-color: #bc1438 #bc1438 #bc1438 transparent;
+  left: -35px;
+}
+.message-div:after {
+  border-color: #bc1438 transparent #bc1438 #bc1438;
+  right: -35px;
+}
+.message-content:before,
+.message-content:after {
+  position: absolute;
+  content: "";
+  height: 0;
+  line-height: 1px;
+  border-style: solid;
+  border-width: 5px;
+  z-index: -1999;
+}
+.message-content:before {
+  border-color: #bc1438 #bc1438 transparent transparent;
+  bottom: -10px;
+  left: 0;
+}
+.message-content:after {
+  border-color: #bc1438 transparent transparent #bc1438;
+  bottom: -10px;
+  right: 0;
+}
+
+.strategy-popup {
+  height: 325px;
+  width: 300px;
+  background: #e51c46;
+  border-radius: 10px;
+  border-style: double;
+  border-color: #000000;
+  border-width: 17px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  transition: 200ms ease-in-out;
+  text-align: center;
+  padding: 0 15px 15px;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+  color: #000000;
+  padding-top: 15px;
+}
+
+.strategy-popup h3 {
+  color: #fff;
+  font-family: serif;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 10px;
+}
+.strategy-popup p {
+  color: #fff;
+  font-family: serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: right;
+}
+.strategy-popup button {
+  width: 75%;
+  margin-top: 50px;
+  padding: 10px 0;
+  background: floralwhite;
+  color: #bc1438;
+  border: 5px;
+  outline: rgba(0, 0, 0, 0.25);
+  font-size: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: inset 0px 1px 0px 0px #bc1438;
+}
+
+.open-Strategy-Popup {
+  visibility: visible;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1);
+}
+/*------------------------------------------------------------------------*/
+
+/* -----------------Poker Chips Dropdown section--------------------------*/
+#dropbtn {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #d10f83 0%, #c30e8d 100%);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s;
+  outline: none;
+  /* Dropdown Button */
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #000000;
+  min-width: 160px;
+  width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding-bottom: 20px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  background-color: transparent;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  float: right;
+}
+.dropdown-content img {
+  width: 80px;
+  height: auto;
+  justify-content: center;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content img:hover {
+  background-color: rgb(248, 0, 0);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+  text-align: center;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+#dropbtn2 {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #d10f83 0%, #c30e8d 100%);
+  float: right;
+  position: relative;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  background-color: #ffffff;
+  display: block;
+  margin-right: 1.5rem;
+  cursor: pointer;
+  transition: all 0.35s;
+  outline: none;
+  /* Dropdown Button */
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown2 {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 50px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content2 {
+  display: none;
+  position: absolute;
+  right: 0;
+  float: right;
+  background-color: #000000;
+  min-width: 160px;
+  width: 250px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding-bottom: 20px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content2 button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  border: none;
+  background-color: transparent;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  float: right;
+}
+.dropdown-content2 img {
+  width: 80px;
+  height: auto;
+  justify-content: center;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content2 img:hover {
+  background-color: rgb(248, 0, 0);
+}
+
+/* Show the dropdown menu on hover */
+.show {
+  display: block;
+  text-align: center;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown2:hover .dropbtn {
+  background-color: #3e8e41;
+}

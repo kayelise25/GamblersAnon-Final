@@ -1,0 +1,8 @@
+[
+    {   "playerId": "8",
+        "Decisions": ["H", "H", "H", "H", "H", "H", "H", "H", "H", "H"]
+    },
+    {   "playerId": "9",
+        "Decisions": ["H", "D", "D", "D", "D", "H", "H", "H", "H", "H"]
+    }
+]
