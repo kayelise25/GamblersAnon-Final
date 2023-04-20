@@ -67,6 +67,37 @@
             <button id="start">
               <a id="link" href="app.html">Start</a>
             </button>
+
+//tutorial pop up
+<div class="popup" onclick="myFunction()">Tutorial
+  <div class="popuptext" id="myPopup">
+            <h1>Get started by clicking "Start"</h1>
+  <img  src="/visuals/tutorial/home.png" alt="logo" width="720" height="410"/>
+            <h1>Look of the game</h1>
+  <img src="/visuals/tutorial/startGame.png" alt="logo" width="720" height="410"/>
+            <h1>Fill items to begin</h1>
+  <img src="/visuals/tutorial/setGameUp.png" alt="logo" width="720" height="410" />
+            <h1>Make a decision based on your hand</h1>
+  <img src="/visuals/tutorial/makeDecision.png" alt="logo" width="720" height="410" />
+            <h1>See result, decide if you want to continue</h1>
+  <img src="/visuals/tutorial/getResult.png" alt="logo" width="720" height="410" />
+            <h1>Play second game</h1>
+  <img src="/visuals/tutorial/secondGame.png" alt="logo" 
+  width="720" height="410" />
+              <h1>End when you want to</h1>
+  <img src="/visuals/tutorial/end.png" alt="logo" 
+  width="720" height="410" />
+                <h1>The end 🎉</h1>
+  </div>
+</div>
+
+<script>
+  // When the user clicks on div, open the popup
+  function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+</script>
           </div>
         </div>
       </div>

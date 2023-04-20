@@ -306,6 +306,27 @@ container {
   outline: none;
 }
 
+#tutorial {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #d10f0f 0%, #c30e0e 100%);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 2rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s;
+  outline: none;
+}
+
+#tutorial a {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 #start a {
   position: relative;
   z-index: 2;
@@ -896,4 +917,75 @@ img.msg__img {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown2:hover .dropbtn {
   background-color: #3e8e41;
+}
+
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+    width: 1000px;
+    height: 600px;
+          overflow-y: auto;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 3;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -500px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
