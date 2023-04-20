@@ -36,7 +36,7 @@ let playerScore2 = 0
 let betAmount = 0.0
 let betAmount2 = 0.0
 let pokerchip
-let stratDecision = "T"
+let stratDecision = "..."
 let key
 
 
@@ -66,9 +66,11 @@ function showPlayerScore() {
 
 function display_Decision() {
   document.getElementById("stratDecision").innerHTML = stratDecision
+  document.getElementById("pHand").innerHTML = listPlayerCard(playerCards)
 }
 
 function openStrategyPopup() {
+  getapi()
   strategyPopup.classList.add("open-Strategy-Popup")
   gameOver = false
 }
@@ -78,6 +80,29 @@ function closeStrategyPopup() {
     setTimeout(function () {
       showMessage()
     }, 1000)
+}
+
+// return player cards for display
+const listPlayerCard = (card) => {
+  let cardList = ""
+  return Array.from(card.children).reduce((cardList, face) => {
+    let value = ""
+    if (face.firstChild.className === 0){}
+    else if (face.firstChild.className === "JACK"){
+      value = "Jack, "
+    }else if(face.firstChild.className === "QUEEN"){
+      value = "Queen, "
+    }else if(face.firstChild.className === "KING"){
+      value = "King, "
+    }else if(face.firstChild.className === "ACE"){
+      value = "Ace, "
+    }else {
+      value = parseInt(face.firstChild.className)
+    }
+      cardList += value + ",\t "
+    return cardList
+  }, 0)
+  
 }
 
 //Poker Chip Onclick Function
@@ -129,11 +154,11 @@ function showMessage() {
 // Verifies that the player has Won or Bust (First Hand)
 const playerVerify = () => {
   if (playerScore < 21 && playerScore > 0) {
-    getapi()
+    //getapi()
     //display_Decision()
     //gameOver = true
   } else if (playerScore > 21) {
-    getapi()
+    //getapi()
     //display_Decision()
     setMessage(lostBust + dollarSign + betAmount, "/visuals/lost.gif")
     showMessage()
@@ -141,7 +166,7 @@ const playerVerify = () => {
     Total_Funds()
     //gameOver = true
   } else if (playerScore === 21 && playerCards.children.length == 2) {
-    getapi()
+    //getapi()
     //display_Decision()
     setMessage(won21 + dollarSign + betAmount * 1.5, "/visuals/21-savage.gif")
     showMessage()
@@ -236,9 +261,9 @@ const access = (card) => {
     }else if(parseInt(card.children[index].firstChild.className) !== "ACE" && parseInt(card.children[index+1].firstChild.className) === "ACE"){
       key = "A, " + parseInt(card.children[index].firstChild.className)
     }else{
-      if(score(card)>17){
+      if(score(card)>=17){
         key = 17 
-      }else if(score(card)<8){
+      }else if(score(card)<=8){
         key = 8
       }else{
         key = score(card)
@@ -278,11 +303,11 @@ async function getapi() {
     }else if(hint == "D"){
       stratDecision = "DOUBLE DOWN"
     }else {
-      stratDecision = "ERROR: NULL RETURN"
+      stratDecision = data[0].stringify()
     }
     console.log(data);
     console.log(stratDecision)
-    return data;
+    return stratDecision;
 
 }
 
@@ -335,7 +360,11 @@ overlay.addEventListener("click", () => {
 
 // Verify the game (Second Hand)
 const compare = () => {
-  if (playerScore > 21) {
+  if (playerScore < 21) {
+      getapi()
+      display_Decision()
+      Total_Funds()
+  } else if (playerScore > 21) {
     gameOver = true
     setTimeout(function () {
       getapi()
@@ -588,6 +617,7 @@ const tableLogic = async () => {
 
   hitBtn.disabled = true
   dblBtn.disabled = true
+  gameOver = true;
 }
 
 // Stand2 Function (Split Function)
@@ -613,9 +643,13 @@ const bothStand = async () => {
 // Hit Function
 const cardDrawPlayer = async () => {
   await player(1)
+  
   playerScore = score(playerCards)
-
   showPlayerScore()
+  
+  if (playerScore <= 21) {
+    if (!spltDecision) compare()
+  } 
   if (playerScore >= 21) {
     if (!spltDecision) compare()
     hitBtn.disabled = true
@@ -626,6 +660,7 @@ const cardDrawPlayer = async () => {
 // Hit2 Function (Split Function)
 const cardDrawPlayer2 = async () => {
   await player2(1)
+
   playerScore2 = score(playerCards2)
 
   if (playerScore2 >= 21) {
@@ -655,6 +690,7 @@ const cardDrawPlayerSPLT = async () => {
   playerScore2 = score(playerCards2)
 
   getBetAmount2()
+
 
   spltDecision = true
   hitBtn2.disabled = false
