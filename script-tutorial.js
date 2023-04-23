@@ -38,6 +38,7 @@ let betAmount2 = 0.0
 let pokerchip
 let stratDecision = "..."
 let key
+let cardList = ""
 
 
 let spltDecision = false
@@ -84,7 +85,7 @@ function closeStrategyPopup() {
 
 // return player cards for display
 const listPlayerCard = (card) => {
-  let cardList = ""
+  
   return Array.from(card.children).reduce((cardList, face) => {
     let value = ""
     if (face.firstChild.className === 0){}
@@ -229,7 +230,7 @@ const showMessage2 = (message, message2, gif) => {
 const access = (card) => {
   index = 0;
   key=""
-  if(card.children.length===1 && isSplit == true){
+  if(card.children.length===1 && ifSplit == true){
     if(score(card)>17){
       key = 17 
     }else if(score(card)<8){
@@ -255,10 +256,10 @@ const access = (card) => {
       parseInt(card.children[index + 1].firstChild.className)
     ) {
       key = parseInt(card.children[index].firstChild.className) + "," + parseInt(card.children[index].firstChild.className)
-    } else if(parseInt(card.children[index].firstChild.className) === "ACE" && parseInt(card.children[index+1].firstChild.className) !== "ACE"){
+    } else if(parseInt(card.children[index].firstChild.className) === "ACE" && parseInt(card.children[index+1].firstChild.className) != "ACE"){
   //check for double down instances
       key = "A, " + parseInt(card.children[index+1].firstChild.className)
-    }else if(parseInt(card.children[index].firstChild.className) !== "ACE" && parseInt(card.children[index+1].firstChild.className) === "ACE"){
+    }else if(parseInt(card.children[index].firstChild.className) != "ACE" && parseInt(card.children[index+1].firstChild.className) === "ACE"){
       key = "A, " + parseInt(card.children[index].firstChild.className)
     }else{
       if(score(card)>=17){
@@ -286,9 +287,6 @@ const access = (card) => {
 async function getapi() {
   let playerValue = access(playerCards)
   prevTableHand = tableScore
- /* if(ifSplit==true){
-    playerValue = access(playerCards2)
-  }*/
   const fetchCard = await fetch(
     `http://localhost:3000/get-data/${playerValue}`
   )
@@ -303,7 +301,7 @@ async function getapi() {
     }else if(hint == "D"){
       stratDecision = "DOUBLE DOWN"
     }else {
-      stratDecision = data[0].stringify()
+      stratDecision = data[0]
     }
     console.log(data);
     console.log(stratDecision)
@@ -361,9 +359,10 @@ overlay.addEventListener("click", () => {
 // Verify the game (Second Hand)
 const compare = () => {
   if (playerScore < 21) {
-      getapi()
-      display_Decision()
-      Total_Funds()
+    getapi()
+    display_Decision()
+    Total_Funds()
+    
   } else if (playerScore > 21) {
     gameOver = true
     setTimeout(function () {
@@ -401,6 +400,15 @@ const compare = () => {
     }, 1000)
     setMessage(Tied + dollarSign + betAmount, "/visuals/lost.gif")
   } else if (tableScore > playerScore && tableScore <= 21) {
+    gameOver = true
+    setTimeout(function () {
+      getapi()
+      display_Decision()
+      totalFunds -= betAmount
+      Total_Funds()
+    }, 1000)
+    setMessage(loser + dollarSign + betAmount, "/visuals/lost.gif")
+  }else if (tableScore < playerScore && playerScore <= 21) {
     gameOver = true
     setTimeout(function () {
       getapi()
@@ -496,37 +504,37 @@ const compare2 = () => {
   var resultMeg2
 
   if (playerScore > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + lostBust + dollarSign + betAmount
     totalFunds -= betAmount
     Total_Funds()
   } else if (playerScore === 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + won21 + dollarSign + 1.5 * betAmount
     totalFunds += 1.5 * betAmount
     Total_Funds()
   } else if (playerScore > tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + won + dollarSign + betAmount
     totalFunds += betAmount
     Total_Funds()
   } else if (playerScore === tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + lostTied + dollarSign + betAmount
     totalFunds -= betAmount
     Total_Funds()
   } else if (tableScore > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + wonDBust + dollarSign + betAmount
     totalFunds += betAmount + betAmount
     Total_Funds()
   } else {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + loser + dollarSign + betAmount
     totalFunds -= betAmount
@@ -534,37 +542,37 @@ const compare2 = () => {
   }
 
   if (playerScore2 > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + lostBust + dollarSign + betAmount2
     totalFunds -= betAmount2
     Total_Funds()
   } else if (playerScore2 === 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + won21 + dollarSign + 1.5 * betAmount2
     totalFunds += 1.5 * betAmount2
     Total_Funds()
   } else if (playerScore2 > tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + won + dollarSign + betAmount2
     totalFunds += betAmount2
     Total_Funds()
   } else if (playerScore2 === tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + lostTied + dollarSign + betAmount2
     totalFunds -= betAmount
     Total_Funds()
   } else if (tableScore > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + wonDBust + dollarSign + betAmount2
     totalFunds += betAmount + betAmount
     Total_Funds()
   } else {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + loser + dollarSign + betAmount2
     totalFunds -= betAmount
@@ -574,6 +582,31 @@ const compare2 = () => {
     showMessage2(resultMeg1, resultMeg2, "/visuals/spiderman.gif")
   }, 5000)
 }
+
+async function getapi2() {
+  let playerValue = access(playerCards2)
+  prevTableHand = tableScore
+  const fetchCard = await fetch(
+    `http://localhost:3000/get-data/${playerValue}`
+  )
+  const data = await fetchCard.json()
+    hint = data[0].Decisions[tableScore-2]; 
+    if(hint == "H"){
+      stratDecision = "HIT"
+    }else if(hint == "S"){
+      stratDecision = "STAND"
+    }else if(hint == "P"){
+      stratDecision = "SPLIT"
+    }else if(hint == "D"){
+      stratDecision = "DOUBLE DOWN"
+    }else {
+      stratDecision = data[0].stringify()
+    }
+    console.log(data);
+    console.log(stratDecision)
+    return stratDecision;
+}
+
 
 //--------------------------------------------------------
 
@@ -617,7 +650,8 @@ const tableLogic = async () => {
 
   hitBtn.disabled = true
   dblBtn.disabled = true
-  gameOver = true;
+  if (!spltDecision) gameOver = true;
+  
 }
 
 // Stand2 Function (Split Function)
@@ -647,7 +681,7 @@ const cardDrawPlayer = async () => {
   playerScore = score(playerCards)
   showPlayerScore()
   
-  if (playerScore <= 21) {
+  if (playerScore < 21) {
     if (!spltDecision) compare()
   } 
   if (playerScore >= 21) {
@@ -662,6 +696,7 @@ const cardDrawPlayer2 = async () => {
   await player2(1)
 
   playerScore2 = score(playerCards2)
+  compare2();
 
   if (playerScore2 >= 21) {
     hitBtn2.disabled = true
@@ -686,11 +721,11 @@ const cardDrawPlayerSPLT = async () => {
     0.5
   )
 
-  playerScore = score(playerCards)
+  playerScore = score(newcard)
   playerScore2 = score(playerCards2)
 
   getBetAmount2()
-
+  compare()
 
   spltDecision = true
   hitBtn2.disabled = false
@@ -703,10 +738,16 @@ const cardDrawPlayerSPLT = async () => {
 const cardDrawPlayerDBL = async () => {
   await player(1)
   playerScore = score(playerCards)
+  compare()
+  while (tableScore < 17 && !spltDecision) {
+    await table(1)
+    tableScore = score(tableCards)
+  }
   betAmount *= 2
 
   hitBtn.disabled = true
   dblBtn.disabled = true
+  gameOver = true;
 }
 
 // Double Down2 Function (Split Decision)
