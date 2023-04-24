@@ -40,7 +40,7 @@ let betAmount2 = 0.0
 let pokerchip
 let pokerid
 let pokerchip2 = 0
-let stratDecision = "..."
+let stratDecision = "T"
 let key
 
 let alreadySplit = false
@@ -69,6 +69,8 @@ function preRestart() {
   tableCards.innerHTML = ""
   playerCards.innerHTML = ""
   playerCards2.innerHTML = ""
+  playerScore = 0
+  tableScore = 0
 }
 
 function Total_Funds() {
@@ -84,8 +86,6 @@ function display_Decision() {
 }
 
 function openStrategyPopup() {
-  getapi()
-  display_Decision()
   strategyPopup.classList.add("open-Strategy-Popup")
   gameOver = false
 }
@@ -204,7 +204,7 @@ const score = (card) => {
       aceCounter++
     } else denomination = parseInt(face.firstChild.className)
     total += denomination
-    if (total > 21 && isAce && aceCounter == 1) {
+    if (total > 21 && isAce && aceCounter >= 1) {
       total -= 10
       aceCounter--
     }
@@ -278,12 +278,12 @@ const access = (card) => {
         parseInt(card.children[index].firstChild.className)
     } else if (
       parseInt(card.children[index].firstChild.className) === "ACE" &&
-      parseInt(card.children[index + 1].firstChild.className) != "ACE"
+      parseInt(card.children[index + 1].firstChild.className) !== "ACE"
     ) {
       //check for double down instances
       key = "A, " + parseInt(card.children[index + 1].firstChild.className)
     } else if (
-      parseInt(card.children[index].firstChild.className) != "ACE" &&
+      parseInt(card.children[index].firstChild.className) !== "ACE" &&
       parseInt(card.children[index + 1].firstChild.className) === "ACE"
     ) {
       key = "A, " + parseInt(card.children[index].firstChild.className)
@@ -312,42 +312,27 @@ const access = (card) => {
 //call to db to get strategy card information
 async function getapi() {
   let playerValue = access(playerCards)
-  prevTableHand = score(tableCards)
+  prevTableHand = tableScore
   /* if(ifSplit==true){
     playerValue = access(playerCards2)
   }*/
   const fetchCard = await fetch(`http://localhost:3000/get-data/${playerValue}`)
   const data = await fetchCard.json()
-  hint = data[0].Decisions[tableScore-2]
-  if (hint === "H") {
+  hint = data[0].Decisions[tableScore - 2]
+  if (hint == "H") {
     stratDecision = "HIT"
-  } else if (hint === "S") {
+  } else if (hint == "S") {
     stratDecision = "STAND"
-  } else if (hint === "P") {
+  } else if (hint == "P") {
     stratDecision = "SPLIT"
-  } else if (hint === "D") {
+  } else if (hint == "D") {
     stratDecision = "DOUBLE DOWN"
   } else {
-    stratDecision = "..."
+    stratDecision = "ERROR: NULL RETURN"
   }
   console.log(data)
   console.log(stratDecision)
   return data
-}
-
-// Restart Bet after each game
-const restartBet = () => {
-  let newBet = prompt(
-    "Place New Bet: \nCancel to Return to Main Menu",
-    betAmount
-  )
-  if (newBet == null || newBet == "") {
-    window.location.href = "/index.html"
-  } else {
-    betInput.value = newBet
-    getBetAmount()
-  }
-  playerMenu2.style.display = "none"
 }
 
 // start a new game, with the same deck
@@ -387,10 +372,6 @@ overlay.addEventListener("click", () => {
 
 // Verify the game (Second Hand)
 const compare = () => {
-  if(playerScore < 21){
-    getapi()
-    display_Decision()
-  }
   if (playerScore > 21) {
     gameOver = true
     setTimeout(function () {
@@ -732,8 +713,6 @@ const cardDrawPlayerDBL = async () => {
   hitBtn.disabled = true
   dblBtn.disabled = true
   sptBtn.disabled = !ifSplit(playerCards)
-  gameOver=true
-  compare()
 }
 
 // Double Down2 Function (Split Decision)
@@ -790,5 +769,5 @@ hitBtn.addEventListener("click", cardDrawPlayer, display_Decision)
 dblBtn.addEventListener("click", cardDrawPlayerDBL, display_Decision)
 
 stdBtn2.addEventListener("click", tableLogic2)
-hitBtn2.addEventListener("click", cardDrawPlayer2, display_Decision)
-dblBtn2.addEventListener("click", cardDrawPlayerDBL2, display_Decision)
+hitBtn2.addEventListener("click", cardDrawPlayer2)
+dblBtn2.addEventListener("click", cardDrawPlayerDBL2)

@@ -61,6 +61,8 @@ function preRestart() {
   tableCards.innerHTML = ""
   playerCards.innerHTML = ""
   playerCards2.innerHTML = ""
+  playerScore = 0
+  tableScore = 0
 }
 
 function Total_Funds() {
@@ -175,7 +177,7 @@ const score = (card) => {
       denomination = parseInt(face.firstChild.className)
     }
     total += denomination
-    if (total > 21 && isAce && aceCounter == 1) {
+    if (total > 21 && isAce && aceCounter >= 1) {
       total -= 10
       aceCounter--
     }
@@ -557,6 +559,9 @@ const cardDrawPlayerDBL = async () => {
   hitBtn.disabled = true
   dblBtn.disabled = true
   sptBtn.disabled = !ifSplit(playerCards)
+  setTimeout(function () {
+    tableLogic()
+  }, 2000)
 }
 
 // Double Down2 Function (Split Decision)
