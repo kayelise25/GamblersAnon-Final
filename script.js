@@ -39,6 +39,7 @@ let pokerchip
 let pokerid
 let pokerchip2 = 0
 
+let alreadySplit = false
 let spltDecision = false
 let bothstand = false
 let bothstand2 = false
@@ -320,7 +321,8 @@ function getBetAmount2() {
 function ifSplit(card) {
   var result
   index = 0
-  if (card.children.length != 2) result = false
+  if (alreadySplit) result = false
+  else if (card.children.length != 2) result = false
   else if (
     (card.children[index].firstChild.className === "JACK" &&
       card.children[index + 1].firstChild.className === "JACK") ||
@@ -537,6 +539,7 @@ const cardDrawPlayerSPLT = async () => {
 
   getBetAmount2()
 
+  alreadySplit = true
   spltDecision = true
   playerMenu2.style.display = "flex"
   hitBtn2.disabled = false
