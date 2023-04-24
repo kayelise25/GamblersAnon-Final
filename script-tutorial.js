@@ -4,7 +4,7 @@ const playerCards2 = document.querySelector(".player-cardsSPLT")
 const startMenu = document.querySelector(".menu-start")
 const playerMenu = document.querySelector(".menu")
 const playerMenu2 = document.querySelector(".menu2")
-const newBetBtn = document.querySelector(".dropbtn2")
+const newBetBtn = document.querySelector("#dropbtn2")
 
 const closeBtn = document.getElementById("close2")
 const betBtn = document.getElementById("bet")

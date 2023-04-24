@@ -1001,11 +1001,11 @@ img.msg__img {
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+.dropdown:hover #dropbtn {
   background-color: #3e8e41;
 }
 
-.dropbtn2 {
+#dropbtn2 {
   font-size: 1rem;
   background-image: linear-gradient(to top, #d10f83 0%, #c30e8d 100%);
   float: right;
@@ -1013,7 +1013,7 @@ img.msg__img {
   padding: 14px 32px;
   border: none;
   border-radius: 4px;
-  background-color: #ffffff;
+  color: #ffffff;
   display: none;
   margin-right: 1.5rem;
   cursor: pointer;
@@ -1080,6 +1080,6 @@ img.msg__img {
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown2:hover .dropbtn2 {
+.dropdown2:hover #dropbtn2 {
   background-color: #3e8e41;
 }
