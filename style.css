@@ -2,6 +2,186 @@
   margin: 0px;
 }
 
+/*---------------------------Close Buttons--------------------------------- */
+
+#close {
+  overflow: hidden;
+  position: relative;
+  border: none;
+  padding: 0;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background: transparent;
+  color: #f21d1d;
+  font: inherit;
+  text-indent: 100%;
+  cursor: pointer;
+}
+#close:focus {
+  outline: solid 0 transparent;
+  box-shadow: 0 0 0 2px #fceb32;
+}
+
+#close:hover {
+  background: rgba(29, 161, 142, 0.1);
+}
+
+#close:before,
+#close:after {
+  position: absolute;
+  top: 15%;
+  left: calc(50% - 0.0625em);
+  width: 0.125em;
+  height: 70%;
+  border-radius: 0.125em;
+  transform: rotate(45deg);
+  background: currentcolor;
+  content: "";
+}
+
+#close:after {
+  transform: rotate(-45deg);
+}
+
+#close2 {
+  overflow: hidden;
+  position: relative;
+  border: none;
+  padding: 0;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background: transparent;
+  color: #f21d1d;
+  font: inherit;
+  text-indent: 100%;
+  cursor: pointer;
+}
+#close2:focus {
+  outline: solid 0 transparent;
+  box-shadow: 0 0 0 2px #fceb32;
+}
+
+#close2:hover {
+  background: rgba(29, 161, 142, 0.1);
+}
+
+#close2:before,
+#close2:after {
+  position: absolute;
+  top: 15%;
+  left: calc(50% - 0.0625em);
+  width: 0.125em;
+  height: 70%;
+  border-radius: 0.125em;
+  transform: rotate(45deg);
+  background: currentcolor;
+  content: "";
+}
+
+#close2:after {
+  transform: rotate(-45deg);
+}
+
+/*---------------------------Tutorial Format--------------------------------- */
+#tutorial {
+  font-size: 1rem;
+  background-image: linear-gradient(to top, #0f7ad1 0%, #0e53c3 100%);
+  padding: 14px 32px;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  margin-top: 0rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.35s;
+  outline: none;
+}
+
+#tutorial a {
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  text-align: center;
+  color: #fff;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 1000px;
+  height: 600px;
+  overflow-y: auto;
+  background-color: #494848;
+  color: #ffffff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 3;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -500px;
+}
+
+.popuptext h1 {
+  font-size: 15px;
+  margin-bottom: 20px;
+  font-family: "Kaisei HarunoUmi", serif;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
 /*---------------------------Main Format--------------------------------- */
 header h1 {
   background-color: #d10f0f;
@@ -193,6 +373,7 @@ container {
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  margin-bottom: 70px;
 }
 
 #rules h1 {
@@ -304,27 +485,6 @@ container {
   position: relative;
   transition: all 0.35s;
   outline: none;
-}
-
-#tutorial {
-  font-size: 1rem;
-  background-image: linear-gradient(to top, #d10f0f 0%, #c30e0e 100%);
-  padding: 14px 32px;
-  border: none;
-  border-radius: 4px;
-  color: #ffffff;
-  margin-top: 2rem;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.35s;
-  outline: none;
-}
-
-#tutorial a {
-  position: relative;
-  z-index: 2;
-  color: #ffffff;
-  text-decoration: none;
 }
 
 #start a {
@@ -845,7 +1005,7 @@ img.msg__img {
   background-color: #3e8e41;
 }
 
-#dropbtn2 {
+.dropbtn2 {
   font-size: 1rem;
   background-image: linear-gradient(to top, #d10f83 0%, #c30e8d 100%);
   float: right;
@@ -854,7 +1014,7 @@ img.msg__img {
   border: none;
   border-radius: 4px;
   background-color: #ffffff;
-  display: block;
+  display: none;
   margin-right: 1.5rem;
   cursor: pointer;
   transition: all 0.35s;
@@ -876,7 +1036,7 @@ img.msg__img {
   position: absolute;
   right: 0;
   float: right;
-  background-color: #000000;
+  background-color: transparent;
   min-width: 160px;
   width: 250px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -914,78 +1074,12 @@ img.msg__img {
   text-align: center;
 }
 
+/* Hide the dropdown menu on hover */
+.hide {
+  display: none;
+}
+
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown2:hover .dropbtn {
+.dropdown2:hover .dropbtn2 {
   background-color: #3e8e41;
-}
-
-/* Popup container - can be anything you want */
-.popup {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  text-align: center;
-  color: #fff;
-}
-
-/* The actual popup */
-.popup .popuptext {
-  visibility: hidden;
-    width: 1000px;
-    height: 600px;
-          overflow-y: auto;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px 0;
-    position: absolute;
-    z-index: 3;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -500px;
-}
-
-/* Popup arrow */
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-/* Toggle this class - hide and show the popup */
-.popup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }

@@ -4,7 +4,9 @@ const playerCards2 = document.querySelector(".player-cardsSPLT")
 const startMenu = document.querySelector(".menu-start")
 const playerMenu = document.querySelector(".menu")
 const playerMenu2 = document.querySelector(".menu2")
+const newBetBtn = document.querySelector(".dropbtn2")
 
+const closeBtn = document.getElementById("close2")
 const betBtn = document.getElementById("bet")
 const hitBtn = document.getElementById("hit")
 const hitBtn2 = document.getElementById("hit2")
@@ -36,10 +38,10 @@ let playerScore2 = 0
 let betAmount = 0.0
 let betAmount2 = 0.0
 let pokerchip
-let stratDecision = "..."
+let pokerid
+let pokerchip2 = 0
+let stratDecision = "T"
 let key
-let cardList = ""
-
 
 let spltDecision = false
 let bothstand = false
@@ -57,6 +59,17 @@ let dollarSign = "$"
 
 let decision = "The correct decision for your hand was "
 
+function close() {
+  window.location.href = "/index.html"
+}
+
+function preRestart() {
+  document.getElementById("myDropdown").classList.toggle("show")
+  tableCards.innerHTML = ""
+  playerCards.innerHTML = ""
+  playerCards2.innerHTML = ""
+}
+
 function Total_Funds() {
   document.getElementById("totalFund_p").innerHTML = "$" + totalFunds
 }
@@ -67,11 +80,9 @@ function showPlayerScore() {
 
 function display_Decision() {
   document.getElementById("stratDecision").innerHTML = stratDecision
-  document.getElementById("pHand").innerHTML = listPlayerCard(playerCards)
 }
 
 function openStrategyPopup() {
-  getapi()
   strategyPopup.classList.add("open-Strategy-Popup")
   gameOver = false
 }
@@ -83,34 +94,25 @@ function closeStrategyPopup() {
     }, 1000)
 }
 
-// return player cards for display
-const listPlayerCard = (card) => {
-  
-  return Array.from(card.children).reduce((cardList, face) => {
-    let value = ""
-    if (face.firstChild.className === 0){}
-    else if (face.firstChild.className === "JACK"){
-      value = "Jack, "
-    }else if(face.firstChild.className === "QUEEN"){
-      value = "Queen, "
-    }else if(face.firstChild.className === "KING"){
-      value = "King, "
-    }else if(face.firstChild.className === "ACE"){
-      value = "Ace, "
-    }else {
-      value = parseInt(face.firstChild.className)
-    }
-      cardList += value + ",\t "
-    return cardList
-  }, 0)
-  
+//Poker Chip Onclick Function
+function pokerChip(n) {
+  pokerid = n
+  pokerchip = parseInt(document.getElementById("poker" + pokerid).value)
+  document.getElementById("poker" + pokerid).style.backgroundColor = "Red"
 }
 
 //Poker Chip Onclick Function
-function pokerChip(n) {
-  pokerchip = parseInt(document.getElementById("poker" + n).value)
-  document.getElementById("poker" + n).style.backgroundColor = "Red"
+function pokerChip2(n) {
+  pokerid = n
+  pokerchip2 = parseInt(document.getElementById("poker" + pokerid).value)
+  document.getElementById("poker" + pokerid).style.backgroundColor = "Red"
+  restartGame()
 }
+
+function placeNewBet() {
+  newBetBtn.style.display = "none"
+}
+
 //Get Bet amount from input
 function getBetAmount() {
   if (!betInput.value) {
@@ -118,6 +120,10 @@ function getBetAmount() {
   } else {
     betAmount = parseFloat(betInput.value)
   }
+}
+
+function updateBetAmount() {
+  betAmount = pokerchip2
 }
 
 function setDeckSize() {
@@ -155,11 +161,11 @@ function showMessage() {
 // Verifies that the player has Won or Bust (First Hand)
 const playerVerify = () => {
   if (playerScore < 21 && playerScore > 0) {
-    //getapi()
+    getapi()
     //display_Decision()
     //gameOver = true
   } else if (playerScore > 21) {
-    //getapi()
+    getapi()
     //display_Decision()
     setMessage(lostBust + dollarSign + betAmount, "/visuals/lost.gif")
     showMessage()
@@ -167,7 +173,7 @@ const playerVerify = () => {
     Total_Funds()
     //gameOver = true
   } else if (playerScore === 21 && playerCards.children.length == 2) {
-    //getapi()
+    getapi()
     //display_Decision()
     setMessage(won21 + dollarSign + betAmount * 1.5, "/visuals/21-savage.gif")
     showMessage()
@@ -182,6 +188,7 @@ const score = (card) => {
   let isAce = false
   return Array.from(card.children).reduce((total, face) => {
     let denomination = 0
+    let aceCounter = 0
     if (
       face.firstChild.className === "JACK" ||
       face.firstChild.className === "QUEEN" ||
@@ -191,9 +198,13 @@ const score = (card) => {
     } else if (face.firstChild.className === "ACE") {
       denomination = 11
       isAce = true
+      aceCounter++
     } else denomination = parseInt(face.firstChild.className)
     total += denomination
-    if (total > 21 && isAce) total -= 10
+    if (total > 21 && isAce && aceCounter == 1) {
+      total -= 10
+      aceCounter--
+    }
     return total
   }, 0)
 }
@@ -228,18 +239,18 @@ const showMessage2 = (message, message2, gif) => {
 
 //translate player cards to key for database access
 const access = (card) => {
-  index = 0;
-  key=""
-  if(card.children.length===1 && ifSplit == true){
-    if(score(card)>17){
-      key = 17 
-    }else if(score(card)<8){
+  index = 0
+  key = ""
+  if (card.children.length === 1 && isSplit == true) {
+    if (score(card) > 17) {
+      key = 17
+    } else if (score(card) < 8) {
       key = 8
-    }else{
+    } else {
       key = score(card)
     }
-  } else if(card.children.length===2){
-    //checking for split instances 
+  } else if (card.children.length === 2) {
+    //checking for split instances
     if (
       (card.children[index].firstChild.className === "JACK" &&
         card.children[index + 1].firstChild.className === "JACK") ||
@@ -249,34 +260,46 @@ const access = (card) => {
         card.children[index + 1].firstChild.className === "KING")
     ) {
       key = "10,10"
-    } else if ((card.children[index].firstChild.className === "ACE" && card.children[index + 1].firstChild.className === "ACE")){
+    } else if (
+      card.children[index].firstChild.className === "ACE" &&
+      card.children[index + 1].firstChild.className === "ACE"
+    ) {
       key = "A,A"
-    }else if (
+    } else if (
       parseInt(card.children[index].firstChild.className) ===
       parseInt(card.children[index + 1].firstChild.className)
     ) {
-      key = parseInt(card.children[index].firstChild.className) + "," + parseInt(card.children[index].firstChild.className)
-    } else if(parseInt(card.children[index].firstChild.className) === "ACE" && parseInt(card.children[index+1].firstChild.className) != "ACE"){
-  //check for double down instances
-      key = "A, " + parseInt(card.children[index+1].firstChild.className)
-    }else if(parseInt(card.children[index].firstChild.className) != "ACE" && parseInt(card.children[index+1].firstChild.className) === "ACE"){
+      key =
+        parseInt(card.children[index].firstChild.className) +
+        "," +
+        parseInt(card.children[index].firstChild.className)
+    } else if (
+      parseInt(card.children[index].firstChild.className) === "ACE" &&
+      parseInt(card.children[index + 1].firstChild.className) !== "ACE"
+    ) {
+      //check for double down instances
+      key = "A, " + parseInt(card.children[index + 1].firstChild.className)
+    } else if (
+      parseInt(card.children[index].firstChild.className) !== "ACE" &&
+      parseInt(card.children[index + 1].firstChild.className) === "ACE"
+    ) {
       key = "A, " + parseInt(card.children[index].firstChild.className)
-    }else{
-      if(score(card)>=17){
-        key = 17 
-      }else if(score(card)<=8){
+    } else {
+      if (score(card) > 17) {
+        key = 17
+      } else if (score(card) < 8) {
         key = 8
-      }else{
+      } else {
         key = score(card)
       }
     }
-  }else{
-  //default to value of player hands 
-    if(score(card)>17){
+  } else {
+    //default to value of player hands
+    if (score(card) > 17) {
       key = 17
-    }else if(score(card)<8){
+    } else if (score(card) < 8) {
       key = 8
-    }else {
+    } else {
       key = score(card)
     }
   }
@@ -287,26 +310,26 @@ const access = (card) => {
 async function getapi() {
   let playerValue = access(playerCards)
   prevTableHand = tableScore
-  const fetchCard = await fetch(
-    `http://localhost:3000/get-data/${playerValue}`
-  )
+  /* if(ifSplit==true){
+    playerValue = access(playerCards2)
+  }*/
+  const fetchCard = await fetch(`http://localhost:3000/get-data/${playerValue}`)
   const data = await fetchCard.json()
-    hint = data[0].Decisions[tableScore-2]; 
-    if(hint == "H"){
-      stratDecision = "HIT"
-    }else if(hint == "S"){
-      stratDecision = "STAND"
-    }else if(hint == "P"){
-      stratDecision = "SPLIT"
-    }else if(hint == "D"){
-      stratDecision = "DOUBLE DOWN"
-    }else {
-      stratDecision = data[0]
-    }
-    console.log(data);
-    console.log(stratDecision)
-    return stratDecision;
-
+  hint = data[0].Decisions[tableScore - 2]
+  if (hint == "H") {
+    stratDecision = "HIT"
+  } else if (hint == "S") {
+    stratDecision = "STAND"
+  } else if (hint == "P") {
+    stratDecision = "SPLIT"
+  } else if (hint == "D") {
+    stratDecision = "DOUBLE DOWN"
+  } else {
+    stratDecision = "ERROR: NULL RETURN"
+  }
+  console.log(data)
+  console.log(stratDecision)
+  return data
 }
 
 // Restart Bet after each game
@@ -326,10 +349,12 @@ const restartBet = () => {
 
 // start a new game, with the same deck
 const restartGame = async () => {
-  restartBet()
-  tableCards.innerHTML = ""
-  playerCards2.innerHTML = ""
-  playerCards.innerHTML = ""
+  updateBetAmount()
+  playerMenu2.style.display = "none"
+  newBetBtn.style.display = "block"
+  document.getElementById("poker" + pokerid).style.backgroundColor =
+    "transparent"
+  document.getElementById("myDropdown").classList.remove("show")
   messageContent.innerHTML = ""
   betBtn.disabled = true
   hitBtn.disabled = false
@@ -353,24 +378,20 @@ const restartGame = async () => {
 overlay.addEventListener("click", () => {
   overlay.classList.remove("active")
   messageDiv.classList.remove("active")
-  restartGame()
+  preRestart()
+  placeNewBet()
 })
 
 // Verify the game (Second Hand)
 const compare = () => {
-  if (playerScore < 21) {
-    getapi()
-    display_Decision()
-    Total_Funds()
-    
-  } else if (playerScore > 21) {
+  if (playerScore > 21) {
     gameOver = true
     setTimeout(function () {
       getapi()
       display_Decision()
       totalFunds -= betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
     setMessage(lostBust + dollarSign + betAmount, "/visuals/lost.gif")
   } else if (tableScore > 21) {
     gameOver = true
@@ -380,7 +401,7 @@ const compare = () => {
       display_Decision()
       totalFunds += betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
     setMessage(wonDBust + dollarSign + betAmount, "/visuals/griddy.gif")
   } else if (playerScore > tableScore) {
     gameOver = true
@@ -389,7 +410,7 @@ const compare = () => {
       display_Decision()
       totalFunds += betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
     setMessage(won + dollarSign + betAmount, "/visuals/griddy.gif")
   } else if (playerScore === tableScore) {
     gameOver = true
@@ -397,8 +418,8 @@ const compare = () => {
     setTimeout(function () {
       getapi()
       display_Decision()
-    }, 1000)
-    setMessage(Tied + dollarSign + betAmount, "/visuals/lost.gif")
+    }, 2000)
+    setMessage(Tied + dollarSign + betAmount, "/visuals/tied.gif")
   } else if (tableScore > playerScore && tableScore <= 21) {
     gameOver = true
     setTimeout(function () {
@@ -406,16 +427,7 @@ const compare = () => {
       display_Decision()
       totalFunds -= betAmount
       Total_Funds()
-    }, 1000)
-    setMessage(loser + dollarSign + betAmount, "/visuals/lost.gif")
-  }else if (tableScore < playerScore && playerScore <= 21) {
-    gameOver = true
-    setTimeout(function () {
-      getapi()
-      display_Decision()
-      totalFunds -= betAmount
-      Total_Funds()
-    }, 1000)
+    }, 2000)
     setMessage(loser + dollarSign + betAmount, "/visuals/lost.gif")
   }
 }
@@ -456,8 +468,8 @@ function getBetAmount2() {
 function ifSplit(card) {
   var result
   index = 0
-  let denomination = 0
-  if (
+  if (card.childen.length != 2) result = false
+  else if (
     (card.children[index].firstChild.className === "JACK" &&
       card.children[index + 1].firstChild.className === "JACK") ||
     (card.children[index].firstChild.className === "QUEEN" &&
@@ -504,37 +516,37 @@ const compare2 = () => {
   var resultMeg2
 
   if (playerScore > 21) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + lostBust + dollarSign + betAmount
     totalFunds -= betAmount
     Total_Funds()
   } else if (playerScore === 21) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + won21 + dollarSign + 1.5 * betAmount
     totalFunds += 1.5 * betAmount
     Total_Funds()
   } else if (playerScore > tableScore) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + won + dollarSign + betAmount
     totalFunds += betAmount
     Total_Funds()
   } else if (playerScore === tableScore) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + lostTied + dollarSign + betAmount
     totalFunds -= betAmount
     Total_Funds()
   } else if (tableScore > 21) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + wonDBust + dollarSign + betAmount
     totalFunds += betAmount + betAmount
     Total_Funds()
   } else {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + loser + dollarSign + betAmount
     totalFunds -= betAmount
@@ -542,37 +554,37 @@ const compare2 = () => {
   }
 
   if (playerScore2 > 21) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + lostBust + dollarSign + betAmount2
     totalFunds -= betAmount2
     Total_Funds()
   } else if (playerScore2 === 21) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + won21 + dollarSign + 1.5 * betAmount2
     totalFunds += 1.5 * betAmount2
     Total_Funds()
   } else if (playerScore2 > tableScore) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + won + dollarSign + betAmount2
     totalFunds += betAmount2
     Total_Funds()
   } else if (playerScore2 === tableScore) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + lostTied + dollarSign + betAmount2
     totalFunds -= betAmount
     Total_Funds()
   } else if (tableScore > 21) {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + wonDBust + dollarSign + betAmount2
     totalFunds += betAmount + betAmount
     Total_Funds()
   } else {
-    getapi2()
+    getapi()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + loser + dollarSign + betAmount2
     totalFunds -= betAmount
@@ -582,31 +594,6 @@ const compare2 = () => {
     showMessage2(resultMeg1, resultMeg2, "/visuals/spiderman.gif")
   }, 5000)
 }
-
-async function getapi2() {
-  let playerValue = access(playerCards2)
-  prevTableHand = tableScore
-  const fetchCard = await fetch(
-    `http://localhost:3000/get-data/${playerValue}`
-  )
-  const data = await fetchCard.json()
-    hint = data[0].Decisions[tableScore-2]; 
-    if(hint == "H"){
-      stratDecision = "HIT"
-    }else if(hint == "S"){
-      stratDecision = "STAND"
-    }else if(hint == "P"){
-      stratDecision = "SPLIT"
-    }else if(hint == "D"){
-      stratDecision = "DOUBLE DOWN"
-    }else {
-      stratDecision = data[0].stringify()
-    }
-    console.log(data);
-    console.log(stratDecision)
-    return stratDecision;
-}
-
 
 //--------------------------------------------------------
 
@@ -650,8 +637,6 @@ const tableLogic = async () => {
 
   hitBtn.disabled = true
   dblBtn.disabled = true
-  if (!spltDecision) gameOver = true;
-  
 }
 
 // Stand2 Function (Split Function)
@@ -677,28 +662,23 @@ const bothStand = async () => {
 // Hit Function
 const cardDrawPlayer = async () => {
   await player(1)
-  
   playerScore = score(playerCards)
+
   showPlayerScore()
-  
-  if (playerScore < 21) {
-    if (!spltDecision) compare()
-  } 
-  if (playerScore >= 21) {
+  if (playerScore > 21) {
     if (!spltDecision) compare()
     hitBtn.disabled = true
     dblBtn.disabled = true
   }
+  sptBtn.disabled = !ifSplit(playerCards)
 }
 
 // Hit2 Function (Split Function)
 const cardDrawPlayer2 = async () => {
   await player2(1)
-
   playerScore2 = score(playerCards2)
-  compare2();
 
-  if (playerScore2 >= 21) {
+  if (playerScore2 > 21) {
     hitBtn2.disabled = true
     dblBtn2.disabled = true
   }
@@ -721,11 +701,10 @@ const cardDrawPlayerSPLT = async () => {
     0.5
   )
 
-  playerScore = score(newcard)
+  playerScore = score(playerCards)
   playerScore2 = score(playerCards2)
 
   getBetAmount2()
-  compare()
 
   spltDecision = true
   hitBtn2.disabled = false
@@ -738,16 +717,11 @@ const cardDrawPlayerSPLT = async () => {
 const cardDrawPlayerDBL = async () => {
   await player(1)
   playerScore = score(playerCards)
-  compare()
-  while (tableScore < 17 && !spltDecision) {
-    await table(1)
-    tableScore = score(tableCards)
-  }
   betAmount *= 2
 
   hitBtn.disabled = true
   dblBtn.disabled = true
-  gameOver = true;
+  sptBtn.disabled = !ifSplit(playerCards)
 }
 
 // Double Down2 Function (Split Decision)
@@ -775,6 +749,9 @@ const deckDraw = async () => {
   startMenu.style.display = "none"
   playerMenu2.style.display = "none"
   playerMenu.style.display = "flex"
+  newBetBtn.style.display = "block"
+  document.getElementById("poker" + pokerid).style.backgroundColor =
+    "transparent"
   getBetAmount()
 
   await table(1)
@@ -794,6 +771,7 @@ window.addEventListener("load", display_Decision)
 betBtn.addEventListener("click", deckDraw)
 closePopUpBtn.addEventListener("click", closeStrategyPopup)
 
+closeBtn.addEventListener("click", close)
 stdBtn.addEventListener("click", tableLogic, display_Decision)
 sptBtn.addEventListener("click", cardDrawPlayerSPLT, display_Decision)
 hitBtn.addEventListener("click", cardDrawPlayer, display_Decision)

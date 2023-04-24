@@ -24,6 +24,7 @@
         <h1>21 BlackJack</h1>
         <h2>Rules:</h2>
         <p>
+          IMPORTANT: IF FIRST-TIME USER CLICK HOW TO PLAY BUTTON!!! <br /><br />
           Blackjack hands are scored by their point total. The hand with the
           highest total wins as long as it doesn't exceed 21; a hand with a
           higher total than 21 is said to bust. Cards 2 through 10 are worth
@@ -67,37 +68,98 @@
             <button id="start">
               <a id="link" href="app.html">Start</a>
             </button>
+            <div class="popup">
+              <button id="tutorial" onclick="myFunction()">How to Play</button>
+              <div class="popuptext" id="myPopup">
+                <img
+                  src="/visuals/tutorial/home.png"
+                  alt="logo"
+                  width="720"
+                  height="410"
+                />
+                <h1>
+                  Home Screen <br />Before you click the start button you have
+                  the option to select which gamemode you would like to play
+                  between: regular mode and tutorial mode (which is our newest
+                  mode which tells you which decision you should have made after
+                  you play which is based off our strategy card)
+                </h1>
+                <img
+                  src="/visuals/tutorial/startGame.png"
+                  alt="logo"
+                  width="720"
+                  height="410"
+                />
+                <h1>
+                  This is the Betting Screen <br />Here you set the deck size to
+                  any number between 1 and 10. If nothing is entered the default
+                  is 4. There are 2 options for betting which is chip or manual
+                  input **note: if you use the chips it will not appear in the
+                  manual input part** <br />***IMPORTANT NOTE: DO NOT CLICK
+                  BUTTON MULTIPLE TIMES IF MOVING SLOW IT WILL WORK OFF FIRST
+                  CLICK***
+                </h1>
+                <img
+                  src="/visuals/tutorial/gamePlay.png"
+                  alt="logo"
+                  width="720"
+                  height="410"
+                />
+                <h1>
+                  GamePlay Screen<br />This is a demo of a hand being played.
+                  The top card is the dealers and the bottom two are yours (the
+                  player). On the right of that is the decision buttons, if its
+                  grayed out it means its disabled. <br />**NOTE: DO NOT CLICK
+                  HIT BUTTON MULTIPLE TIMES IF MOVING SLOW IT WILL WORK OFF
+                  FIRST CLICK**
+                </h1>
+                <img
+                  src="/visuals/tutorial/winLose.png"
+                  alt="logo"
+                  width="720"
+                  height="410"
+                />
+                <h1>
+                  Win/Lose Screen <br />This screen pops up after you win or
+                  lose. It shows how much you won from that hand. To exit just
+                  click anywhere on the screen (that's NOT the image).
+                </h1>
+                <img
+                  src="/visuals/tutorial/RestartGame.png"
+                  alt="logo"
+                  width="720"
+                  height="410"
+                />
+                <h1>
+                  Restart Game <br />After you exit win/lose screen a dropdown
+                  menu of pokerchips will appear to place a new bet. The X in
+                  the top right is how you return back to the home screen
+                </h1>
+                <img
+                  src="/visuals/tutorial/Split.png"
+                  alt="logo"
+                  width="720"
+                  height="410"
+                />
+                <h1>
+                  Split Decision <br />When pressing a split decision your cards
+                  split and your decision splits aswell. Play the first hand and
+                  stand when done, then play the second hand and stand when
+                  done.
+                </h1>
+                <h1>
+                  <br />Click The How to Play Button to Exit, Enjoy The Game!!!
+                </h1>
+              </div>
+            </div>
 
-//tutorial pop up
-<div class="popup" onclick="myFunction()">Tutorial
-  <div class="popuptext" id="myPopup">
-            <h1>Get started by clicking "Start"</h1>
-  <img  src="/visuals/tutorial/home.png" alt="logo" width="720" height="410"/>
-            <h1>Look of the game</h1>
-  <img src="/visuals/tutorial/startGame.png" alt="logo" width="720" height="410"/>
-            <h1>Fill items to begin</h1>
-  <img src="/visuals/tutorial/setGameUp.png" alt="logo" width="720" height="410" />
-            <h1>Make a decision based on your hand</h1>
-  <img src="/visuals/tutorial/makeDecision.png" alt="logo" width="720" height="410" />
-            <h1>See result, decide if you want to continue</h1>
-  <img src="/visuals/tutorial/getResult.png" alt="logo" width="720" height="410" />
-            <h1>Play second game</h1>
-  <img src="/visuals/tutorial/secondGame.png" alt="logo" 
-  width="720" height="410" />
-              <h1>End when you want to</h1>
-  <img src="/visuals/tutorial/end.png" alt="logo" 
-  width="720" height="410" />
-                <h1>The end 🎉</h1>
-  </div>
-</div>
-
-<script>
-  // When the user clicks on div, open the popup
-  function myFunction() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-  }
-</script>
+            <script>
+              // When the user clicks on div, open the popup
+              function myFunction() {
+                var popup = document.getElementById("myPopup")
+                popup.classList.toggle("show")
+              }
+            </script>
           </div>
         </div>
       </div>

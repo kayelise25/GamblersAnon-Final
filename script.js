@@ -4,7 +4,9 @@ const playerCards2 = document.querySelector(".player-cardsSPLT")
 const startMenu = document.querySelector(".menu-start")
 const playerMenu = document.querySelector(".menu")
 const playerMenu2 = document.querySelector(".menu2")
+const newBetBtn = document.querySelector(".dropbtn2")
 
+const closeBtn = document.getElementById("close")
 const betBtn = document.getElementById("bet")
 const hitBtn = document.getElementById("hit")
 const hitBtn2 = document.getElementById("hit2")
@@ -34,6 +36,8 @@ let playerScore2 = 0
 let betAmount = 0.0
 let betAmount2 = 0.0
 let pokerchip
+let pokerid
+let pokerchip2 = 0
 
 let spltDecision = false
 let bothstand = false
@@ -47,6 +51,17 @@ let lostBust = "That's a Bust!!! \n You lost:  "
 let Tied = "Tied \nNeither Win nor Lose:  "
 let dollarSign = "$"
 
+function close() {
+  window.location.href = "/index.html"
+}
+
+function preRestart() {
+  document.getElementById("myDropdown").classList.toggle("show")
+  tableCards.innerHTML = ""
+  playerCards.innerHTML = ""
+  playerCards2.innerHTML = ""
+}
+
 function Total_Funds() {
   document.getElementById("totalFund_p").innerHTML = "$" + totalFunds
 }
@@ -57,12 +72,21 @@ function showPlayerScore() {
 
 //Poker Chip Onclick Function
 function pokerChip(n) {
-  pokerchip = parseInt(document.getElementById("poker" + n).value)
-  document.getElementById("poker" + n).style.backgroundColor = "Red"
+  pokerid = n
+  pokerchip = parseInt(document.getElementById("poker" + pokerid).value)
+  document.getElementById("poker" + pokerid).style.backgroundColor = "Red"
+}
+
+//Poker Chip Onclick Function
+function pokerChip2(n) {
+  pokerid = n
+  pokerchip2 = parseInt(document.getElementById("poker" + pokerid).value)
+  document.getElementById("poker" + pokerid).style.backgroundColor = "Red"
+  restartGame()
 }
 
 function placeNewBet() {
-  document.getElementById("dropdown2").classList.toggle("show")
+  newBetBtn.style.display = "none"
 }
 
 //Get Bet amount from input
@@ -72,6 +96,10 @@ function getBetAmount() {
   } else {
     betAmount = parseFloat(betInput.value)
   }
+}
+
+function updateBetAmount() {
+  betAmount = pokerchip2
 }
 
 function setDeckSize() {
@@ -122,7 +150,7 @@ const playerVerify = () => {
       )
       totalFunds += 1.5 * betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
   }
 }
 
@@ -130,6 +158,7 @@ const playerVerify = () => {
 const score = (card) => {
   let isAce = false
   return Array.from(card.children).reduce((total, face) => {
+    let aceCounter = 0
     let denomination = 0
     if (
       face.firstChild.className === "JACK" ||
@@ -140,12 +169,15 @@ const score = (card) => {
     } else if (face.firstChild.className === "ACE") {
       denomination = 11
       isAce = true
-      if (total > 21) denomination = 1
+      aceCounter++
     } else {
       denomination = parseInt(face.firstChild.className)
     }
     total += denomination
-    if (total > 21 && isAce) total -= 10
+    if (total > 21 && isAce && aceCounter == 1) {
+      total -= 10
+      aceCounter--
+    }
     return total
   }, 0)
 }
@@ -181,29 +213,14 @@ const showMessage2 = (message, message2, gif) => {
   messageContent.appendChild(h22)
 }
 
-// Restart Bet after each game
-const restartBet = () => {
-  let newBet = prompt(
-    "Place New Bet: \nCancel to Return to Main Menu",
-    betAmount
-  )
-  if (newBet == null || newBet == "") {
-    window.location.href = "/index.html"
-  } else {
-    betInput.value = newBet
-    getBetAmount()
-  }
-  playerMenu2.style.display = "none"
-}
-
 // start a new game, with the same deck
 const restartGame = async () => {
-  restartBet()
-  //placeNewBet()
+  updateBetAmount()
   playerMenu2.style.display = "none"
-  tableCards.innerHTML = ""
-  playerCards.innerHTML = ""
-  playerCards2.innerHTML = ""
+  newBetBtn.style.display = "block"
+  document.getElementById("poker" + pokerid).style.backgroundColor =
+    "transparent"
+  document.getElementById("myDropdown").classList.remove("show")
   messageContent.innerHTML = ""
   betBtn.disabled = true
   hitBtn.disabled = false
@@ -226,7 +243,8 @@ const restartGame = async () => {
 overlay.addEventListener("click", () => {
   overlay.classList.remove("active")
   messageDiv.classList.remove("active")
-  restartGame()
+  preRestart()
+  placeNewBet()
 })
 
 // Verify the game (Second Hand)
@@ -246,23 +264,23 @@ const compare = () => {
       )
       totalFunds += betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
   } else if (playerScore > tableScore) {
     setTimeout(function () {
       showMessage(won + dollarSign + betAmount, giggity, "/visuals/griddy.gif")
       totalFunds += betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
   } else if (playerScore === tableScore) {
     setTimeout(function () {
-      showMessage(Tied + dollarSign + betAmount, sike, "/visuals/lost.gif")
-    }, 1000)
+      showMessage(Tied + dollarSign + betAmount, sike, "/visuals/tied.gif")
+    }, 2000)
   } else if (tableScore > playerScore && tableScore <= 21) {
     setTimeout(function () {
       showMessage(loser + dollarSign + betAmount, peter, "/visuals/lost.gif")
       totalFunds -= betAmount
       Total_Funds()
-    }, 1000)
+    }, 2000)
   }
 }
 
@@ -302,8 +320,8 @@ function getBetAmount2() {
 function ifSplit(card) {
   var result
   index = 0
-  let denomination = 0
-  if (
+  if (card.children.length != 2) result = false
+  else if (
     (card.children[index].firstChild.className === "JACK" &&
       card.children[index + 1].firstChild.className === "JACK") ||
     (card.children[index].firstChild.className === "QUEEN" &&
@@ -479,11 +497,12 @@ const cardDrawPlayer = async () => {
   playerScore = score(playerCards)
 
   showPlayerScore()
-  if (playerScore >= 21) {
+  if (playerScore > 21) {
     if (!spltDecision) compare()
     hitBtn.disabled = true
     dblBtn.disabled = true
   }
+  sptBtn.disabled = !ifSplit(playerCards)
 }
 
 // Hit2 Function (Split Function)
@@ -491,7 +510,7 @@ const cardDrawPlayer2 = async () => {
   await player2(1)
   playerScore2 = score(playerCards2)
 
-  if (playerScore2 >= 21) {
+  if (playerScore2 > 21) {
     hitBtn2.disabled = true
     dblBtn2.disabled = true
   }
@@ -534,6 +553,7 @@ const cardDrawPlayerDBL = async () => {
 
   hitBtn.disabled = true
   dblBtn.disabled = true
+  sptBtn.disabled = !ifSplit(playerCards)
 }
 
 // Double Down2 Function (Split Decision)
@@ -561,6 +581,9 @@ const deckDraw = async () => {
   startMenu.style.display = "none"
   playerMenu2.style.display = "none"
   playerMenu.style.display = "flex"
+  newBetBtn.style.display = "block"
+  document.getElementById("poker" + pokerid).style.backgroundColor =
+    "transparent"
   getBetAmount()
 
   await table(1)
@@ -578,6 +601,7 @@ const deckDraw = async () => {
 window.addEventListener("load", Total_Funds, showPlayerScore)
 betBtn.addEventListener("click", deckDraw)
 
+closeBtn.addEventListener("click", close)
 stdBtn.addEventListener("click", tableLogic)
 hitBtn.addEventListener("click", cardDrawPlayer)
 dblBtn.addEventListener("click", cardDrawPlayerDBL)
