@@ -40,7 +40,7 @@ let betAmount2 = 0.0
 let pokerchip
 let pokerid
 let pokerchip2 = 0
-let stratDecision = "T"
+let stratDecision = "..."
 let key
 
 let alreadySplit = false
@@ -86,6 +86,14 @@ function display_Decision() {
 }
 
 function openStrategyPopup() {
+  getapi()
+  display_Decision()
+  strategyPopup.classList.add("open-Strategy-Popup")
+  gameOver = false
+}
+function openStrategyPopup2() {
+  getapi2()
+  display_Decision()
   strategyPopup.classList.add("open-Strategy-Popup")
   gameOver = false
 }
@@ -96,6 +104,7 @@ function closeStrategyPopup() {
       showMessage()
     }, 1000)
 }
+
 
 //Poker Chip Onclick Function
 function pokerChip(n) {
@@ -244,7 +253,7 @@ const showMessage2 = (message, message2, gif) => {
 const access = (card) => {
   index = 0
   key = ""
-  if (card.children.length === 1 && isSplit == true) {
+  if (card.children.length === 1 && ifSplit == true) {
     if (score(card) > 17) {
       key = 17
     } else if (score(card) < 8) {
@@ -278,12 +287,12 @@ const access = (card) => {
         parseInt(card.children[index].firstChild.className)
     } else if (
       parseInt(card.children[index].firstChild.className) === "ACE" &&
-      parseInt(card.children[index + 1].firstChild.className) !== "ACE"
+      parseInt(card.children[index + 1].firstChild.className) != "ACE"
     ) {
       //check for double down instances
       key = "A, " + parseInt(card.children[index + 1].firstChild.className)
     } else if (
-      parseInt(card.children[index].firstChild.className) !== "ACE" &&
+      parseInt(card.children[index].firstChild.className) != "ACE" &&
       parseInt(card.children[index + 1].firstChild.className) === "ACE"
     ) {
       key = "A, " + parseInt(card.children[index].firstChild.className)
@@ -312,13 +321,13 @@ const access = (card) => {
 //call to db to get strategy card information
 async function getapi() {
   let playerValue = access(playerCards)
-  prevTableHand = tableScore
+  prevTableHand = score(tableCards)
   /* if(ifSplit==true){
     playerValue = access(playerCards2)
   }*/
   const fetchCard = await fetch(`http://localhost:3000/get-data/${playerValue}`)
   const data = await fetchCard.json()
-  hint = data[0].Decisions[tableScore - 2]
+  hint = data[0].Decisions[prevTableHand-2]
   if (hint == "H") {
     stratDecision = "HIT"
   } else if (hint == "S") {
@@ -328,7 +337,7 @@ async function getapi() {
   } else if (hint == "D") {
     stratDecision = "DOUBLE DOWN"
   } else {
-    stratDecision = "ERROR: NULL RETURN"
+    stratDecision = "..."
   }
   console.log(data)
   console.log(stratDecision)
@@ -506,37 +515,37 @@ const compare2 = () => {
   var resultMeg2
 
   if (playerScore > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + lostBust + dollarSign + betAmount
     totalFunds -= betAmount
     Total_Funds()
   } else if (playerScore === 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + won21 + dollarSign + 1.5 * betAmount
     totalFunds += 1.5 * betAmount
     Total_Funds()
   } else if (playerScore > tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + won + dollarSign + betAmount
     totalFunds += betAmount
     Total_Funds()
   } else if (playerScore === tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
-    resultMeg1 = "Hand 1: \n" + lostTied + dollarSign + betAmount
+    resultMeg1 = "Hand 1: \n" + Tied + dollarSign + betAmount
     totalFunds -= betAmount
     Total_Funds()
   } else if (tableScore > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + wonDBust + dollarSign + betAmount
     totalFunds += betAmount + betAmount
     Total_Funds()
   } else {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg1 = "Hand 1: \n" + loser + dollarSign + betAmount
     totalFunds -= betAmount
@@ -544,37 +553,37 @@ const compare2 = () => {
   }
 
   if (playerScore2 > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + lostBust + dollarSign + betAmount2
     totalFunds -= betAmount2
     Total_Funds()
   } else if (playerScore2 === 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + won21 + dollarSign + 1.5 * betAmount2
     totalFunds += 1.5 * betAmount2
     Total_Funds()
   } else if (playerScore2 > tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + won + dollarSign + betAmount2
     totalFunds += betAmount2
     Total_Funds()
   } else if (playerScore2 === tableScore) {
-    getapi()
+    getapi2()
     display_Decision()
-    resultMeg2 = "Hand 2: \n" + lostTied + dollarSign + betAmount2
+    resultMeg2 = "Hand 2: \n" + Tied + dollarSign + betAmount2
     totalFunds -= betAmount
     Total_Funds()
   } else if (tableScore > 21) {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + wonDBust + dollarSign + betAmount2
     totalFunds += betAmount + betAmount
     Total_Funds()
   } else {
-    getapi()
+    getapi2()
     display_Decision()
     resultMeg2 = "Hand 2: \n" + loser + dollarSign + betAmount2
     totalFunds -= betAmount
@@ -583,6 +592,32 @@ const compare2 = () => {
   setTimeout(function () {
     showMessage2(resultMeg1, resultMeg2, "/visuals/spiderman.gif")
   }, 5000)
+}
+
+//call to db to get strategy card information
+async function getapi2() {
+  let playerValue = access(playerCards2)
+  prevTableHand = score(tableCards)
+  /* if(ifSplit==true){
+    playerValue = access(playerCards2)
+  }*/
+  const fetchCard = await fetch(`http://localhost:3000/get-data/${playerValue}`)
+  const data = await fetchCard.json()
+  hint = data[0].Decisions[prevTableHand-2]
+  if (hint == "H") {
+    stratDecision = "Hand 2: HIT"
+  } else if (hint == "S") {
+    stratDecision = "Hand 2: STAND"
+  } else if (hint == "P") {
+    stratDecision = "Hand 2: SPLIT"
+  } else if (hint == "D") {
+    stratDecision = "Hand 2: DOUBLE DOWN"
+  } else {
+    stratDecision = "..."
+  }
+  console.log(data)
+  console.log(stratDecision)
+  return data
 }
 
 //--------------------------------------------------------
@@ -769,5 +804,5 @@ hitBtn.addEventListener("click", cardDrawPlayer, display_Decision)
 dblBtn.addEventListener("click", cardDrawPlayerDBL, display_Decision)
 
 stdBtn2.addEventListener("click", tableLogic2)
-hitBtn2.addEventListener("click", cardDrawPlayer2)
-dblBtn2.addEventListener("click", cardDrawPlayerDBL2)
+hitBtn2.addEventListener("click", cardDrawPlayer2, getapi2)
+dblBtn2.addEventListener("click", cardDrawPlayerDBL2, getapi2)
