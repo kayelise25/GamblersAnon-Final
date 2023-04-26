@@ -798,11 +798,14 @@ betBtn.addEventListener("click", deckDraw)
 closePopUpBtn.addEventListener("click", closeStrategyPopup)
 
 closeBtn.addEventListener("click", close)
-stdBtn.addEventListener("click", tableLogic, display_Decision)
-sptBtn.addEventListener("click", cardDrawPlayerSPLT, display_Decision)
-hitBtn.addEventListener("click", cardDrawPlayer, display_Decision)
-dblBtn.addEventListener("click", cardDrawPlayerDBL, display_Decision)
+stdBtn.addEventListener("click", tableLogic, getapi)
+sptBtn.addEventListener("click", cardDrawPlayerSPLT, getapi)
+hitBtn.addEventListener("click", cardDrawPlayer, getapi)
+dblBtn.addEventListener("click", cardDrawPlayerDBL, getapi)
 
-stdBtn2.addEventListener("click", tableLogic2)
+stdBtn2.addEventListener("click", tableLogic2, getapi2)
 hitBtn2.addEventListener("click", cardDrawPlayer2, getapi2)
 dblBtn2.addEventListener("click", cardDrawPlayerDBL2, getapi2)
+
+
+
